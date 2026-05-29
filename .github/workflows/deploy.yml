@@ -8,12 +8,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Copy files to Bastion
+      - name: Deploy to App Server via Bastion
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.BASTION_HOST }}
+          host: 10.0.3.245
           username: ubuntu
-          key: ${{ secrets.BASTION_KEY }}
+          key: ${{ secrets.EC2_KEY }}
+          proxy_host: ${{ secrets.BASTION_HOST }}
+          proxy_username: ubuntu
+          proxy_key: ${{ secrets.BASTION_KEY }}
           script: |
-            ssh -o StrictHostKeyChecking=no ubuntu@10.0.3.245 "cd /home/ubuntu/shopping-app && git pull && sudo docker compose up -d --build"
+            cd /home/ubuntu/shopping-app
+            git pull
+            sudo docker compose up -d --build
