@@ -143,10 +143,10 @@ export default function ProductsPage() {
   });
 
   return (
-    <div style={{ display: 'flex', minHeight: 'calc(100vh - 70px)' }}>
+    <div className="products-layout">
       
       {/* Sidebar Navigation */}
-      <aside style={{ width: '250px', background: 'var(--secondary)', padding: '2rem', borderRight: '1px solid var(--border)' }}>
+      <aside className="products-sidebar">
         
         {/* Wishlist View Selector */}
         <div style={{ marginBottom: '2rem', borderBottom: '1px solid var(--border)', paddingBottom: '1.5rem' }}>
@@ -241,10 +241,10 @@ export default function ProductsPage() {
       </aside>
 
       {/* Main Content Area */}
-      <main style={{ flex: 1, padding: '2rem' }}>
+      <main className="products-main">
         
         {/* Top Bar with Search */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+        <div className="products-header">
           <h1>Shop {selectedCategory !== 'All' ? selectedCategory : 'All Products'}</h1>
           
           <div style={{ display: 'flex', gap: '0.5rem' }}>
