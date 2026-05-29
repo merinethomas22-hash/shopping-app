@@ -11,13 +11,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2
+      - name: Deploy to EC2 via Bastion
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.BASTION_HOST }}
           username: ubuntu
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.BASTION_KEY }}
+          proxy_host: ""
           script: |
+            ssh -o StrictHostKeyChecking=no -i ~/app-key.pem ubuntu@10.0.3.245 << 'ENDSSH'
             cd /home/ubuntu/shopping-app
             git pull
             sudo docker compose up -d --build
+            ENDSSH
